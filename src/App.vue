@@ -6,12 +6,17 @@
 </template>
 
 <script>
-import myComponent from './myComponent.vue'
+// import myComponent from './myComponent.vue'
+// 修改路径为构建过的组件
+import myComponent from '../dist/testPublishComponent.min.js'
+import Vue from 'vue'
+Vue.use(myComponent)
+
 export default {
   name: 'app',
-  components: {
-    myComponent,
-  },
+  // components: {
+  //   myComponent,
+  // },
   data () {
     return {
     }

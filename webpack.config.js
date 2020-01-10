@@ -2,11 +2,15 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './src/main.js',
+  // entry: './src/main.js',
+  // 如果是开发环境从main.js进，如果是打包构建生产环境，从entry.js进
+  entry: process.env.NODE_ENV == 'development' ? './src/main.js' : './entry.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    // filename: 'build.js',
+    filename: process.env.NODE_ENV == 'development' ? 'build.js' : 'testPublishComponent.min.js',  // 组件打包后生成的文件名
+    libraryTarget: 'umd'   //  将组件暴露为所有的模块定义下都可运行的方式
   },
   module: {
     rules: [
@@ -66,7 +70,8 @@ if (process.env.NODE_ENV === 'production') {
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
+      // sourceMap: true,
+      sourceMap: false,   // 禁用sourceMap
       compress: {
         warnings: false
       }
